@@ -1,0 +1,827 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+
+<body ng-app="examApp" ng-controller="examController">
+
+    <div ng-repeat="service in services">
+        <div class="title">{{service.name}}</div>
+        <table class="customers">
+
+            <tr>
+                <td>
+                    Request Method
+                </td>
+                <td>
+                    {{service.requestMethod}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Url</td>
+                <td>
+                    {{service.url}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Sample Request Data
+                </td>
+                <td>
+                    {{service.SampleRequest}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    Sample Response
+                </td>
+                <td>
+                    {{service.Response}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    Header
+                </td>
+                <td>
+                    {{service.header}}
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+    <style>
+        .customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .customers td,
+        #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .customers tr:hover {
+            background-color: #ddd;
+        }
+
+        .customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .title {
+            width: 100%;
+            text-align: center;
+            background: #4CAF50;
+            padding: 4px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        var app = angular.module("examApp", []);
+        app.controller("examController", function ($scope) {
+            $scope.services = [
+                {
+                    name: "Login",
+                    requestMethod: "post",
+                    url: "https://examsvc.herokuapp.com/api/login",
+                    SampleRequest: `{
+                            "email": "st@mail.com",
+                            "password": "st" 
+                            }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJod
+                            HRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTUyO
+                            DgwODIzOSwiZXhwIjoxNTI4ODk1MjM5LCJuYmYiOjE1Mjg4MDgyMzksImp0a
+                            SI6Ijh6MnJOV1VuVE44Zk9mNDYiLCJzdWIiOjEyLCJwcnYiOiI4N2UwYWYxZ
+                            WY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.TtS41pxngbKJY
+                            jFfGdxNn6aODGEuqvmcoBJkd7kFToY",
+
+                            "user": {
+                                "id": 12,
+                                "username": "doctor",
+                                "email": "dc@mail.com",
+                                "phone_number": "2285470137172",
+                                "date_of_birth": "1915-05-18",
+                                "role": "0",
+                                "is_approved": 0,
+                                "is_active": 0,
+                                "created_at": "2018-06-12 12:51:08",
+                                "updated_at": "2018-06-12 12:51:08"
+                            }
+                        }
+                    }`
+                },
+                {
+                    name: "Register",
+                    requestMethod: "post",
+                    url: "https://examsvc.herokuapp.com/api/register",
+                    SampleRequest: `{
+                        "username" : "name", 
+                        "email":"mail",
+                        "password":"password",
+                        "date_of_birth":"1995/2/2",
+                        "phone_number":"0123456789"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRw
+                            OlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyODg
+                            wODQ4NiwiZXhwIjoxNTI4ODk1NDg2LCJuYmYiOjE1Mjg4MDg0ODYsImp0aSI6Il
+                            lSY21DRGRmVGZLNEFNUXkiLCJzdWIiOjUyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxN
+                            TgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.SgjJyXfr5jtuzRyUcB9uFPVo
+                            2kpukewg8zu-S61BYRQ",
+                            "user": {
+                                "id": 52,
+                                "username": "new user",
+                                "email": "new@mail.com",
+                                "phone_number": "1234567890",
+                                "date_of_birth": "1996-02-02",
+                                "role": "0",
+                                "is_approved": 0,
+                                "is_active": 0,
+                                "created_at": "2018-06-12 13:01:25",
+                                "updated_at": "2018-06-12 13:01:25"
+                            }
+                        }
+                    }`
+                },
+                {
+                    name: "logout",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/logout",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC
+                        8xMjcuMC4wLjE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZX
+                        hwIjoxNTI3NzAyMDIwLCJuYmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5az
+                        FvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNG
+                        UwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keabS8ci23T65Cfu0wggI"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": "User logged out successfully"
+                    }` 
+                },
+
+                {   
+                    name: "get logged in user",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/user",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC
+                        8xMjcuMC4wLjE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZX
+                        hwIjoxNTI3NzAyMDIwLCJuYmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5az
+                        FvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNG
+                        UwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keabS8ci23T65Cfu0wggI"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "id": 12,
+                            "username": "doctor",
+                            "email": "dc@mail.com",
+                            "phone_number": "2285470137172",
+                            "date_of_birth": "1915-05-18",
+                            "role": "0",
+                            "is_approved": 0,
+                            "is_active": 0,
+                            "created_at": "2018-06-12 12:51:08",
+                            "updated_at": "2018-06-12 12:51:08"
+                        }
+                    }`
+                },
+
+                {
+                    name: "get all subjects ",
+                    requestMethod: "get",
+                    url: "https://examsvc.herokuapp.com/api/subject/all",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": [
+                            {
+                                "id": 2,
+                                "subject_name": "subject0",
+                                "desc": "some details for subject0",
+                                "user_id": 2,
+                                "created_at": "2018-06-12 12:51:10",
+                                "updated_at": "2018-06-12 12:51:10"
+                            },
+                            {
+                                "id": 12,
+                                "subject_name": "subject1",
+                                "desc": "some details for subject1",
+                                "user_id": 12,
+                                "created_at": "2018-06-12 12:51:12",
+                                "updated_at": "2018-06-12 12:51:12"
+                            },
+                            {
+                                "id": 22,
+                                "subject_name": "subject10",
+                                "desc": "some details for subject10",
+                                "user_id": 22,
+                                "created_at": "2018-06-12 12:51:14",
+                                "updated_at": "2018-06-12 12:51:14"
+                            },
+                            {
+                                "id": 32,
+                                "subject_name": "subject4",
+                                "desc": "some details for subject4",
+                                "user_id": 32,
+                                "created_at": "2018-06-12 12:51:16",
+                                "updated_at": "2018-06-12 12:51:16"
+                            },
+                            {
+                                "id": 42,
+                                "subject_name": "subject5",
+                                "desc": "some details for subject5",
+                                "user_id": 42,
+                                "created_at": "2018-06-12 12:51:17",
+                                "updated_at": "2018-06-12 12:51:17"
+                            }
+                        ]
+                    }`
+                },
+
+                {
+                    name: "find subject by id",
+                    requestMethod: "get",
+                    url: "https://examsvc.herokuapp.com/api/subject/find/{id}",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "result": true,
+                        "result": {
+                            "id": 12,
+                            "subject_name": "subject2",
+                            "desc": "new description",
+                            "user_id": 12,
+                            "created_at": "2018-06-09 12:08:39",
+                            "updated_at": "2018-06-10 16:39:39"
+                        }
+                    }`
+                } , 
+
+                {
+                    name: "find subject by it's doctor id",
+                    requestMethod: "get",
+                    url: "https://examsvc.herokuapp.com/api/subject/findByDoctor/{id}",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": [
+                            {
+                                "id": 2,
+                                "subject_name": "subject0",
+                                "desc": "some details for subject0",
+                                "user_id": 2,
+                                "created_at": "2018-06-12 12:51:10",
+                                "updated_at": "2018-06-12 12:51:10"
+                            }
+                        ]
+                    }`
+                },
+
+                {
+                    name: "add new subject",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/subject/create",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
+                        C8xMjcuMC4wLjE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwi
+                        ZXhwIjoxNTI3NzAyMDIwLCJuYmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh
+                        5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2
+                        ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keabS8ci23T65Cfu0wggI",
+                        "subject_name" : "subject name",
+                        "desc" : "subject description"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "user_id": 12,
+                            "subject_name": "new subject name",
+                            "desc": "new description",
+                            "updated_at": "2018-06-12 13:16:47",
+                            "created_at": "2018-06-12 13:16:47",
+                            "id": 52
+                        }
+                    }`
+                },
+
+                {
+                    name: "delete subject",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/subject/delete",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "id" : "id"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": "deleted successfully"
+                    }`
+                },
+
+                {
+                    name: "update subject",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/subject/update",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "id" : id
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": "Updated Successfully"
+                    }`
+                },
+
+                {
+                    name: "update user data for password should send old password as well",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/updateUser",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "username" : "new username (optional)",
+                        "password" : "new pass (optional)",
+                        "phone_number" : "new phone_number (optional)",
+                        "date_of_birth" : "new date_of_birth (optional)",
+                        "role" : "new role (if admin) (optional)",
+                        "is_approved" : "new is_approved (if admin) (optional)",
+                        "is_active" : "new is_active (if admin) (optional)",
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": "Updated Successfully"
+                    }`
+                },
+
+                {
+                    name: "get all exams",
+                    requestMethod: "GET",
+                    url: "https://examsvc.herokuapp.com/api/exam/all",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": [
+                            {
+                                "id": 2,
+                                "exam_name": "exam1",
+                                "desc": "some details1",
+                                "grade": 24,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:26",
+                                "updated_at": "2018-06-12 12:51:26"
+                            },
+                            {
+                                "id": 12,
+                                "exam_name": "exam2",
+                                "desc": "some details2",
+                                "grade": 23,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:26",
+                                "updated_at": "2018-06-12 12:51:26"
+                            },
+                            {
+                                "id": 22,
+                                "exam_name": "exam3",
+                                "desc": "some details3",
+                                "grade": 25,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:27",
+                                "updated_at": "2018-06-12 12:51:27"
+                            },
+                            {
+                                "id": 32,
+                                "exam_name": "exam4",
+                                "desc": "some details4",
+                                "grade": 24,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:27",
+                                "updated_at": "2018-06-12 12:51:27"
+                            },
+                            {
+                                "id": 42,
+                                "exam_name": "exam5",
+                                "desc": "some details5",
+                                "grade": 22,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:28",
+                                "updated_at": "2018-06-12 12:51:28"
+                            }
+                        ]
+                    }`
+                },
+
+                {
+                    name: "get exam by id",
+                    requestMethod: "GET",
+                    url: "https://examsvc.herokuapp.com/api/exam/find/{id}",
+                    SampleRequest: `{ }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "id": 2,
+                            "exam_name": "exam1",
+                            "desc": "some details1",
+                            "grade": 24,
+                            "subject_id": 2,
+                            "open": "0",
+                            "duration": "2:00",
+                            "created_at": "2018-06-12 12:51:26",
+                            "updated_at": "2018-06-12 12:51:26"
+                        }
+                    }`
+                },
+
+                {
+                    name: "get subject exams by subject id",
+                    requestMethod: "GET",
+                    url: "https://examsvc.herokuapp.com/api/exam/findBySubject/{id}",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": [
+                            {
+                                "id": 2,
+                                "exam_name": "exam1",
+                                "desc": "some details1",
+                                "grade": 24,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:26",
+                                "updated_at": "2018-06-12 12:51:26"
+                            },
+                            {
+                                "id": 12,
+                                "exam_name": "exam2",
+                                "desc": "some details2",
+                                "grade": 23,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:26",
+                                "updated_at": "2018-06-12 12:51:26"
+                            },
+                            {
+                                "id": 22,
+                                "exam_name": "exam3",
+                                "desc": "some details3",
+                                "grade": 25,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:27",
+                                "updated_at": "2018-06-12 12:51:27"
+                            },
+                            {
+                                "id": 32,
+                                "exam_name": "exam4",
+                                "desc": "some details4",
+                                "grade": 24,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:27",
+                                "updated_at": "2018-06-12 12:51:27"
+                            },
+                            {
+                                "id": 42,
+                                "exam_name": "exam5",
+                                "desc": "some details5",
+                                "grade": 22,
+                                "subject_id": 2,
+                                "open": "0",
+                                "duration": "2:00",
+                                "created_at": "2018-06-12 12:51:28",
+                                "updated_at": "2018-06-12 12:51:28"
+                            }
+                        ]
+                    }`
+                },
+
+                {
+                    name: "add new exam",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/exam/create",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "exam_name" : "exam name ",
+                        "desc" : "description ",
+                        "grade" : "30 ",
+                        "open" : "0 or 1",
+                        "subject_id" : "subject id "
+                        "duration" : "exam duration"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "id": 62,
+                            "exam_name": "new name2",
+                            "desc": "desc",
+                            "grade": 25,
+                            "subject_id": 12,
+                            "open": "0",
+                            "duration": "3:00",
+                            "created_at": "2018-06-12 13:43:00",
+                            "updated_at": "2018-06-12 13:43:00"
+                        }
+                    }`
+                },
+
+                {
+                    name: "delete exam with id",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/exam/delete",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "id" : id 
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": "deleted Successfully"
+                    }`
+                },
+
+                {
+                    name: "update exam",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/exam/update",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "id" : id, 
+                        "exam_name" : "exam_name (optional)", 
+                        "desc" : "desc (optional)", 
+                        "grade" : "grade (optional)", 
+                        "open" : "open (optional)", 
+                        "subject_id" : "subject_id (optional)", 
+                        "duration" : "duration (optional)" 
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": "updated Successfully"
+                    }`
+                },
+
+                {
+                    name: "get all question",
+                    requestMethod: "GET",
+                    url: "https://examsvc.herokuapp.com/api/question/all",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": [
+                            {
+                                "id": 2,
+                                "question": "question1",
+                                "choices": "{
+                                    \"correctAns\" : \"ans1\",
+                                    \"ans1\" : \"myFirstAnswer\",
+                                    \"ans2\" : \"mySecondAnswer\",
+                                    \"ans3\" : \"myThirdAnswer\"
+                                    }",
+                                "grade": 15,
+                                "exam_id": 2
+                            },
+                            {
+                                "id": 12,
+                                "question": "question2",
+                                "choices": "{
+                                    \"correctAns\" : \"ans1\",
+                                    \"ans1\" : \"myFirstAnswer\",
+                                     \"ans2\" : \"mySecondAnswer\",
+                                      \"ans3\" : \"myThirdAnswer\"
+                                      }",
+                                "grade": 18,
+                                "exam_id": 12
+                            },
+                            {
+                                "id": 22,
+                                "question": "question3",
+                                "choices": "{
+                                     \"correctAns\" : \"ans1\",
+                                     \"ans1\" : \"myFirstAnswer\",
+                                      \"ans2\" : \"mySecondAnswer\",
+                                      \"ans3\" : \"myThirdAnswer\"
+                                      }",
+                                "grade": 24,
+                                "exam_id": 22
+                            },
+                            {
+                                "id": 32,
+                                "question": "question4",
+                                "choices": "{
+                                     \"correctAns\" : \"ans1\",
+                                     \"ans1\" : \"myFirstAnswer\",
+                                     \"ans2\" : \"mySecondAnswer\",
+                                      \"ans3\" : \"myThirdAnswer\"
+                                      }",
+                                "grade": 17,
+                                "exam_id": 32
+                            },
+                            {
+                                "id": 42,
+                                "question": "question5",
+                                "choices": "{
+                                    \"correctAns\" : \"ans1\",
+                                    \"ans1\" : \"myFirstAnswer\",
+                                    \"ans2\" : \"mySecondAnswer\",
+                                    \"ans3\" : \"myThirdAnswer\"
+                                    }",
+                                "grade": 20,
+                                "exam_id": 42
+                            }
+                        ]
+                    }`
+                },
+
+                {
+                    name: "find question with id",
+                    requestMethod: "GET",
+                    url: "https://examsvc.herokuapp.com/api/question/find/{id}",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "id": 2,
+                            "question": "question1",
+                            "choices": "{
+                                \"correctAns\" : \"ans1\",
+                                \"ans1\" : \"myFirstAnswer\",
+                                \"ans2\" : \"mySecondAnswer\",
+                                 \"ans3\" : \"myThirdAnswer\"
+                                 }",
+                            "grade": 15,
+                            "exam_id": 2
+                        }
+                    }`
+                },
+
+                {
+                    name: "find question with exam id",
+                    requestMethod: "GET",
+                    url: "https://examsvc.herokuapp.com/api/question/findByExam/{id}",
+                    SampleRequest: `{}`,
+                    Response:`{
+                        "success": true,
+                        "result": [
+                            {
+                                "id": 2,
+                                "question": "question1",
+                                "choices": "{
+                                    \"correctAns\" : \"ans1\",
+                                    \"ans1\" : \"myFirstAnswer\",
+                                    \"ans2\" : \"mySecondAnswer\",
+                                    \"ans3\" : \"myThirdAnswer\"
+                                    }",
+                                "grade": 15,
+                                "exam_id": 2
+                            }
+                        ]
+                    }`
+                },
+
+                {
+                    name: "create question",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/question/create",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "question" : "question",
+                        "choices" : "{
+                            \"correctAns\" : \"ans1\",
+                            \"ans1\" : \"myFirstAnswer\", 
+                            \"ans2\" : \"mySecondAnswer\", 
+                            \"ans3\" : \"myThirdAnswer\"
+                            }",
+                        "exam_id" : "exam id",
+                        "grade" : "question grade"
+                        }`,
+                    Response:`{
+                        "success": true,
+                        "result": {
+                            "question": "new question",
+                            "choices": "{
+                                \"correctAns\" : \"ans1\",
+                                \"ans1\" : \"myFirstAnswer\",
+                                \"ans2\" : \"mySecondAnswer\",
+                                \"ans3\" : \"myThirdAnswer\"
+                                }",
+                            "exam_id": "22",
+                            "grade": "5",
+                            "id": 52
+                        }
+                    }`
+                },
+
+                {
+                    name: "update question",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/question/update",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "id" : id, 
+                        "question" : "question (optional)", 
+                        "choices" : "choices (json) (optional)", 
+                        "grade" : "grade (optional)", 
+                        "exam_id" : "exam_id (optional)"
+                    }`,
+                    Response:`{
+                        "success": true,
+                        "result": "updated successfully"
+                    }`
+                },
+
+                {
+                    name: "delete question",
+                    requestMethod: "POST",
+                    url: "https://examsvc.herokuapp.com/api/question/delete",
+                    SampleRequest: `{
+                        "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wL
+                        jE6ODAwMFwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTUyNzY5ODQyMCwiZXhwIjoxNTI3NzAyMDIwLCJu
+                        YmYiOjE1Mjc2OTg0MjAsImp0aSI6IkU3MXZDaWNSSlh5azFvWHYiLCJzdWIiOjUyLCJwcnYiOiI4N2U
+                        wYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.mC9K-JFkl1JSNh7KLLrpS0keab
+                        S8ci23T65Cfu0wggI",
+                        "id" : id
+                    }`,
+                    Response:`{
+                        "success": true,
+                        "result": "deleted successfully"
+                    }`
+                }
+
+            ]
+        });
+    </script>
+</body>
+
+</html>
